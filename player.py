@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
 
         self.obstacle_sprites = obstacle_sprites
-
+        self.speed = 5
     
 
     def input(self):
@@ -26,13 +26,22 @@ class Player(pygame.sprite.Sprite):
             self.direction.y = 0
 
         if keys[pygame.K_d]:
-            self.direction.x = -1
+            self.direction.x =   1
         elif keys[pygame.K_a]:
-            self.direction.x = 1
+            self.direction.x = -1
         else:
             self.direction.x = 0
+    
+    def move(self, speed):
+        #if vector is not != 0 
+        if self.direction.magnitude() != 0:
+            #normalize the speed of diagonal movements 
+            self.direction = self.direction.normalize()
+        #speed of all other movements 
+        self.rect.center += self.direction * speed 
 
     def update(self):
        self.input()
+       self.move(self.speed)
 
         
