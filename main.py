@@ -7,7 +7,7 @@ class Game:
     def __init__(self):
         # pygame setup
         pygame.init()
-        self.screen = pygame.display.set_mode((1280, 720))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGTH))
         self.clock = pygame.time.Clock()
         self.level = Level()
 
@@ -26,7 +26,7 @@ class Game:
             self.level.run()
 
             pygame.display.update()
-            self.clock.tick(60)  # limits FPS to 60
+            self.clock.tick(60)  # limits FPS to 60dw
         
 if __name__ == '__main__':
     game = Game()
