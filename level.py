@@ -47,8 +47,9 @@ class YSortCameraGroup(pygame.sprite.Group):
 		self.half_height = self.display_surface.get_size()[1] // 2 		
 	
 		self.offset = pygame.math.Vector2()
-
-	def custom_draw(self, player):		#apply the offset based on player pos so camera centers on player
+		
+	#apply the offset based on player pos so camera centers on player
+	def custom_draw(self, player):		
 
 		#getting offset 
 		self.offset.x = player.rect.centerx - self.half_width
