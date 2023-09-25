@@ -24,12 +24,12 @@ class Level:
 		layouts = {
 			'boundary': import_csv_layout('Assets/DungeonCVS/Dungeon_Boundaryblocks.csv'),
 			'entities': import_csv_layout('Assets/DungeonCVS/Dungeon_entities.csv'),
-			'objects' : import_csv_layout('Assets/DungeonCVS/Dungeon_objects.csv')
+			'objects' : import_csv_layout('Assets\DungeonCVS\Dungeon_objects.csv')
 		}
 
 		graphics = {
-			'objects': import_folder('Assets\64xAssets\64xobjects')
-		}		
+			'objects': import_folder('Assets\Assets64\objects')
+		}
 
 		for style, layout in layouts.items():
 				for row_index,row in enumerate(layout):
@@ -41,7 +41,7 @@ class Level:
 							if style == 'boundary':
 								Tile((x,y),[self.obstacle_sprites],'invisible')
 
-							if style == 'object':
+							if style == 'objects':
 								surf = graphics['objects'][int(col)]
 								Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
 
