@@ -10,10 +10,14 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = pos)
         self.hitbox = self.rect.inflate(0, -24)
 
-        self.direction = pygame.math.Vector2()
-
         self.obstacle_sprites = obstacle_sprites
+        
+        #movments
+        self.direction = pygame.math.Vector2()
         self.speed = 6
+        self.attacking = False 
+        self.attack_coldown = 400 
+        self.attack_time = None
     
 
     def input(self):
@@ -33,6 +37,19 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = -1
         else:
             self.direction.x = 0
+
+        #attak input 
+        if keys[pygame.K_u] and not self.attacking:
+            self.attacking = True
+            self.attack_time = pygame.time.get_ticks()
+
+            print("attacking")
+
+        #special ability input 
+        if keys[pygame.K_i] and not self.attacking:
+            self.attacking = True
+            print("special move")
+
     
 
     def move(self, speed):
@@ -63,6 +80,13 @@ class Player(pygame.sprite.Sprite):
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: # moving up on a object
                         self.hitbox.top = sprite.hitbox.bottom
+
+    def cooldown(self):
+        current_time = pygame.time.get_ticks()
+        if self.attacking:
+            if current_time - self.attack_time >= self.attack_cooldown:
+                self.attacking = False
+            
 
     
 
