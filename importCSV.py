@@ -18,5 +18,3 @@ def import_folder(path):
 			image_surf = pygame.image.load(full_path).convert_alpha()
 			surface_list.append(image_surf)
 	return surface_list
-
-#print(import_folder('Assets\Assets64\objects'))

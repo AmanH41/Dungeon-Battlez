@@ -56,7 +56,7 @@ class Level:
 		self.visible_sprites.custom_draw(self.player)
 		self.visible_sprites.update()
 
-		#debug(self.player.direction)  #show player direction 
+		debug(self.player.status)  #show player direction 
 
 #this class is for camera and drawing the sprites
 class YSortCameraGroup(pygame.sprite.Group):

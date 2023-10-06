@@ -10,4 +10,5 @@ class Tile(pygame.sprite.Sprite):
 			self.rect = self.image.get_rect(topleft = (pos[0],pos[1] - TILESIZE))
 		else:
 			self.rect = self.image.get_rect(topleft = pos)
+		#reduce the hitbox of tiles from the y by -10, creates a 3d effect
 		self.hitbox = self.rect.inflate(0,-10)
