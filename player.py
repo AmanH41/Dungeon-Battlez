@@ -26,39 +26,40 @@ class Player(pygame.sprite.Sprite):
         self.attack_time = None
         
     def input(self):
-        #get keys being pressed
-        keys = pygame.key.get_pressed()
-        #directional inputs
-        if keys[pygame.K_w]:      
-            self.direction.y = -1
-            self.status = 'up'
-        elif keys[pygame.K_s]:
-            self.direction.y = 1
-            self.status = 'down'
-        else:
-            self.direction.y = 0
+        if not self.attacking:
+            #get keys being pressed
+            keys = pygame.key.get_pressed()
+            #directional inputs
+            if keys[pygame.K_w]:      
+                self.direction.y = -1
+                self.status = 'up'
+            elif keys[pygame.K_s]:
+                self.direction.y = 1
+                self.status = 'down'
+            else:
+                self.direction.y = 0
 
-        if keys[pygame.K_d]:
-            self.direction.x = 1
-            self.status = 'right'
+            if keys[pygame.K_d]:
+                self.direction.x = 1
+                self.status = 'right'
 
-        elif keys[pygame.K_a]:
-            self.direction.x = -1
-            self.status = 'left'
-        else:
-            self.direction.x = 0
+            elif keys[pygame.K_a]:
+                self.direction.x = -1
+                self.status = 'left'
+            else:
+                self.direction.x = 0
 
         #attack input 
-        if keys[pygame.K_u] and not self.attacking:
-            self.attacking = True
-            self.attack_time = pygame.time.get_ticks()
-            print("attacking")
+            if keys[pygame.K_u] and not self.attacking:
+                self.attacking = True
+                self.attack_time = pygame.time.get_ticks()
+                #print("attacking")
 
-        #special ability input 
-        if keys[pygame.K_i] and not self.attacking:
-            self.attacking = True
-            self.attack_time = pygame.time.get_ticks()
-            print("special move")
+            #special ability input 
+            if keys[pygame.K_i] and not self.attacking:
+                self.attacking = True
+                self.attack_time = pygame.time.get_ticks()
+                #print("special move")
 
         
     def get_status(self):
@@ -86,21 +87,20 @@ class Player(pygame.sprite.Sprite):
 			'right_attack':[],'left_attack':[],'up_attack':[],'down_attack':[]}
 
         for animation in self.animations.keys():
-            full_path = character_path + animation
+            full_path = character_path + animation                          #file + animation 
             self.animations[animation] = import_folder(full_path)
-        print(self.animations)
 
     
     def animate(self):
         animation = self.animations[self.status]
 
 		# loop over the frame index 
-        self.frame_index += self.animation_speed
+        self.frame_index += self.animation_speed       
         if self.frame_index >= len(animation):
-            self.frame_index = 0
+            self.frame_index = 0                                    
 
 		# set the image
-        self.image = animation[int(self.frame_index)]
+        self.image = animation[int(self.frame_index)]                   #index to correct image and display
         self.rect = self.image.get_rect(center = self.hitbox.center)
         
 
