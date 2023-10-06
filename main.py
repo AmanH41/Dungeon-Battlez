@@ -11,6 +11,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.level = Level()
 
+    #boiler plate for the game window to run
     def run(self):
         while True:
             # pygame.QUIT event means the user clicked X to close your window
@@ -26,7 +27,7 @@ class Game:
             self.level.run()
 
             pygame.display.update()
-            self.clock.tick(60)  # limits FPS to 60dw
+            self.clock.tick(60)  # limits FPS to 60
         
 if __name__ == '__main__':
     game = Game()
