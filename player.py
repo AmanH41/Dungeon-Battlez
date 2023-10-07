@@ -3,7 +3,7 @@ from settings import *
 from importCSV import import_folder
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self,pos,groups,obstacle_sprites):        
+    def __init__(self,pos,groups,obstacle_sprites,create_attack, destroy_attack):        
         super().__init__(groups)
 
         self.image = pygame.image.load('Assets/Samurai/down_idle/idle_down.png').convert_alpha()
@@ -24,6 +24,10 @@ class Player(pygame.sprite.Sprite):
         self.attacking = False 
         self.attack_cooldown = 400 
         self.attack_time = None
+
+        #weapon 
+        self.create_attack = create_attack
+        self.destroy_attack = destroy_attack
         
     def input(self):
         if not self.attacking:
@@ -53,13 +57,14 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_u] and not self.attacking:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                #print("attacking")
+                self.create_attack()
 
             #special ability input 
             if keys[pygame.K_i] and not self.attacking:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                #print("special move")
+                print("special move")
+                #self.create_attack()
 
         
     def get_status(self):
@@ -138,6 +143,7 @@ class Player(pygame.sprite.Sprite):
         if self.attacking:
             if current_time - self.attack_time >= self.attack_cooldown:
                 self.attacking = False
+                self.destroy_attack()
             
 
     def update(self):
