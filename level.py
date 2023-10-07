@@ -5,6 +5,7 @@ from player import Player
 from debug import debug
 from importCSV import *
 from random import choice
+from weapon import Weapon
 
 class Level:
 	def __init__(self):
@@ -15,6 +16,9 @@ class Level:
 		# sprite group setup
 		self.visible_sprites = YSortCameraGroup()
 		self.obstacle_sprites = pygame.sprite.Group()
+
+		# attack sprite
+		self.current_attack = None 
 
 		# sprite setup
 		self.create_map()
@@ -47,7 +51,7 @@ class Level:
 
 							if style == 'entities':
 								if col == '0':
-									self.player = Player((x,y),[self.visible_sprites],self.obstacle_sprites)
+									self.player = Player((x,y),[self.visible_sprites],self.obstacle_sprites, self.create_attack, self.destroy_attack)
 								else:
 									pass
 
@@ -55,8 +59,17 @@ class Level:
 		# update and draw the game
 		self.visible_sprites.custom_draw(self.player)
 		self.visible_sprites.update()
-
+		
 		debug(self.player.status)  #show player direction 
+
+
+	def create_attack(self):
+		self.current_attack = Weapon(self.player,[self.visible_sprites])
+
+	def destroy_attack(self):
+		if self.current_attack:
+			self.current_attack.kill()
+		self.current_attack = None 
 
 #this class is for camera and drawing the sprites
 class YSortCameraGroup(pygame.sprite.Group):
